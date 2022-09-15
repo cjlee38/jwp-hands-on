@@ -15,4 +15,15 @@
 - 따라서 `LocalCounterServlet`은 `counter` 몇 번의 요청이 실행되더라도 1 의 값을 응답한다.
 
 
-
+## 2단계 - 필터 학습 테스트
+- 필터는 서비스 메소드를 호출하기 전에 실행된다.
+  - 생각해보면, `Servlet#init` 메소드와 `Servlet#destroy` 메소드는 톰캣 전반의 실행 직후와 종료 직전에 실행된다.
+  - 따라서 `Filter#doFilter` 메소드는 `Servlet#service` 를 하기 이전과 이후를 감싼다.
+- charset은 기본적으로 `ISO-8859-1` 을 사용한다.
+  - `If no charset is specified, ISO-8859-1 will be used.`
+- charset에 대한 설정은 `getWriter` 를 호출하기 이전에 호출되어야 한다.
+  - ```
+    The setCharacterEncoding, setContentType, or setLocale method must be called
+    before getWriter and before committing the response for the character encoding to be used.
+    ```
+ 
